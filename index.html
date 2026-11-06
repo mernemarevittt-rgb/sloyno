@@ -112,7 +112,7 @@ footer a{color:#d9d6cf}
 .toast.on{opacity:1}
 .crumbs{font-size:14px;color:var(--muted);margin-bottom:16px}.crumbs a{color:var(--muted)}
 img.ph{width:100%;height:100%;object-fit:cover;display:block}
-.pc .im{aspect-ratio:3/4;overflow:hidden}
+.pc .im{aspect-ratio:3/4;overflow:hidden;background:#EDE6DA}
 .hero .art{overflow:hidden;aspect-ratio:3/4;max-height:560px}
 .gal .main{aspect-ratio:3/4;overflow:hidden}
 .thumbs button{overflow:hidden;padding:0}
@@ -148,8 +148,8 @@ img.ph{width:100%;height:100%;object-fit:cover;display:block}
 
 <script>
 // Фото — собственные фото товаров автора из магазина OASTORE на Wildberries
-const IMG=(h,id,n,sz)=>`https://mow-basket-cdn-${h}.geobasket.ru/vol${Math.floor(id/1e5)}/part${Math.floor(id/1e3)}/${id}/images/${sz||'c516x688'}/${n}.webp`;
-function pic(p,vi,n,cls){const v=p.v[vi||0];return `<img class="${cls||''}" src="${IMG(v[3],v[2],n||1)}" alt="${p.name}${v[0]?', '+v[0].toLowerCase():''}" loading="lazy" onerror="if(this.closest('.thumbs'))this.parentNode.remove();else this.style.visibility='hidden'">`}
+const IMG=(h,id)=>`p_${id}.jpg`;
+function pic(p,vi,n,cls){const v=p.v[vi||0];return `<img class="${cls||''}" src="${IMG(v[3],v[2])}" alt="${p.name}${v[0]?', '+v[0].toLowerCase():''}" loading="lazy">`}
 const CATS={kitchen:'Кухня и столовая',bath:'Ванная и порядок',kids:'Детям и подарки'};
 // v: [название цвета, hex, артикул WB, сервер фото]
 const P=[
@@ -204,7 +204,7 @@ catalog:(c)=>{meta('Каталог — Слойно','Каталог товар�
 product:(id)=>{const p=P.find(x=>x.id===id);if(!p)return R['']();meta(p.name+' — купить в Слойно',p.desc.slice(0,150));
  return`<div class="crumbs"><a href="#/">Главная</a> / <a href="#/catalog/${p.cat}">${CATS[p.cat]}</a> / ${p.name}</div>
 <div class="prod"><div class="gal"><div class="main" id="gm">${pic(p,S.c,1,'ph')}</div>
-<div class="thumbs" id="th">${thumbs(p)}</div><p class="note" style="margin-top:8px">Фото: собственные, из магазина OASTORE на Wildberries.</p></div>
+<div class="thumbs" id="th">${thumbs(p)}</div><p class="note" style="margin-top:8px">Фото: собственные (магазин OASTORE на Wildberries), фон заменён.</p></div>
 <div><span class="tag">${CATS[p.cat]}</span> ${p.hit?'<span class="tag hit">Хит</span>':''}<h1 style="font-size:clamp(26px,4vw,36px);margin-top:8px">${p.name}</h1>
 <p class="note" style="font-size:14px;margin-top:6px">${rcTxt(p)}${p.revs?' · <a href="#rv">отзывы</a>':''} · Артикул SL-${p.id.toUpperCase()}</p>
 <div class="price">${fmt(p.price)}${p.old?`<s>${fmt(p.old)}</s>`:''}</div><p class="note" style="font-size:14px">или 4 платежа по ${fmt(Math.ceil(p.price/4))} · оплата частями</p>
@@ -269,8 +269,7 @@ privacy:()=>{meta('Политика обработки персональных 
 <h2>7. Cookie</h2><p>Сайт использует cookie для работы корзины и сбора обезличенной статистики. Их можно отключить в настройках браузера.</p></div>`}};
 function meta(t,d){document.title=t;document.querySelector('meta[name=description]').setAttribute('content',d)}
 let S={c:0},promo=false;
-function thumbs(p){return [1,2,3,4].map(n=>`<button class="${n==1?'on':''}" onclick="pickImg('${p.id}',${n},this)">${pic(p,S.c,n,'ph')}</button>`).join('')}
-function pickImg(id,n,b){const p=P.find(x=>x.id===id);document.getElementById('gm').innerHTML=pic(p,S.c,n,'ph');document.querySelectorAll('.thumbs button').forEach(x=>x.classList.toggle('on',x===b))}
+function thumbs(p){return p.v.length>1?p.v.map((v,i)=>`<button class="${i==S.c?'on':''}" onclick="pickColor('${p.id}',${i})" aria-label="${v[0]}">${pic(p,i,1,'ph')}</button>`).join(''):''}
 function pickColor(id,i){const p=P.find(x=>x.id===id);S.c=i;document.getElementById('gm').innerHTML=pic(p,i,1,'ph');document.getElementById('th').innerHTML=thumbs(p);document.getElementById('cn').textContent=p.v[i][0];document.querySelectorAll('.sw button').forEach((b,j)=>b.classList.toggle('on',j===i))}
 function q(i,d){cart[i].q+=d;if(cart[i].q<1)cart.splice(i,1);save();route()}
 function applyPromo(){promo=document.getElementById('pc').value.trim().toUpperCase()==='ПЕРВЫЙ';toast(promo?'Промокод применён: −10%':'Промокод не найден');route()}
