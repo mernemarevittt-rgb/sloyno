@@ -142,41 +142,39 @@ img.ph{width:100%;height:100%;object-fit:cover;display:block}
     <div><a href="#/catalog">Каталог</a><br><a href="#/delivery">Доставка и оплата</a><br><a href="#/about">О магазине и контакты</a><br><a href="#/privacy">Политика обработки ПДн</a></div>
     <div>+7 (900) 000-00-00 (учебный)<br>Telegram · ВКонтакте · MAX<br>Ежедневно 10:00–20:00</div>
   </div>
-  <div class="edu"><b>Учебный проект, заказы не принимаются</b><span>Фото товаров собственные: магазин OASTORE на Wildberries. © 2026 Медетбеков Тилек</span></div>
+  <div class="edu"><b>Учебный проект, заказы не принимаются</b><span>Фото товаров собственные. © 2026 Медетбеков Тилек</span></div>
 </div></footer>
 <div class="toast" id="toast"></div>
 
 <script>
-// Фото — собственные фото товаров автора из магазина OASTORE на Wildberries
+// Фото — собственные фото товаров, фон заменён
 const IMG=(h,id)=>`p_${id}.jpg`;
 function pic(p,vi,n,cls){const v=p.v[vi||0];return `<img class="${cls||''}" src="${IMG(v[3],v[2])}" alt="${p.name}${v[0]?', '+v[0].toLowerCase():''}" loading="lazy">`}
 const CATS={kitchen:'Кухня и столовая',bath:'Ванная и порядок',kids:'Детям и подарки'};
-// v: [название цвета, hex, артикул WB, сервер фото]
+// v: [название цвета, hex, id фото, -]
 const P=[
-{id:'volna',cat:'kitchen',name:'Салфетница «Волна»',price:362,old:649,hit:1,rating:4.9,rc:757,full:1,
+{id:'volna',cat:'kitchen',name:'Салфетница «Волна»',price:362,old:649,hit:1,full:1,
  v:[['Белая','#F2EFE9',563521511,13],['Серая','#9A9A96',569746619,'01'],['Оранжевая','#E8732C',840092285,'07'],['Красная','#C8322B',840092283,'05']],
  desc:'Рельефная салфетница с вертикальными «волнами» — эффект слоистой 3D-печати, который выглядит как дизайнерская керамика. Держит стопку бумажных салфеток любого размера, устойчива и не опрокидывается, когда тянешь салфетку.',
  use:['Обеденный стол и кухонный остров','Кафе и кофейни: в цвет интерьера','Подарок на новоселье в наборе из 2 цветов'],
  specs:[['Материал','PLA/PETG, безопасный для контакта с бытовыми предметами'],['Размер','≈ 18 × 6 × 9 см'],['Подходит','для салфеток 24 × 24 и 33 × 33 см (сложенных)'],['Цвета','белый, серый, оранжевый, красный'],['Уход','протирать влажной салфеткой'],['Производство','Санкт-Петербург, собственная мастерская']],
- faq:[['Поместятся ли большие салфетки?','Да, салфетки 33 × 33 см, сложенные вчетверо, встают свободно.'],['Не выцветет ли цвет?','Пластик окрашен в массе, а не покрыт краской, поэтому не стирается и не облезает.'],['Нужен другой цвет?','Печатаем под заказ: напишите цвет в комментарии, отправим за 48 часов.']],
- revs:[['Ольга','Очень красивая, выглядит дороже своей цены. Взяла белую и серую.'],['Марина','Устойчивая, салфетки достаются по одной. Пришла хорошо упакованной.']]},
-{id:'zubochist',cat:'kitchen',name:'Салфетница с отделением для зубочисток',price:379,old:699,hit:1,rating:4.9,rc:629,v:[['Белая','#F2EFE9',569743685,'07'],['Серая','#9A9A96',832718496,38]],desc:'Салфетница и подставка для зубочисток в одном предмете — меньше вещей на столе.'},
-{id:'elochka',cat:'kitchen',name:'Салфетница новогодняя «Ёлочка»',price:450,rating:5.0,rc:6,v:[['Белая','#F2EFE9',665236987,'09']],desc:'Сезонный хит: праздничная сервировка стола без лишнего декора.'},
-{id:'zazhim',cat:'kitchen',name:'Зажимы для пакетов, 10 шт.',price:340,rating:4.9,rc:0,v:[['','#ccc',1047164288,10]],desc:'Плотно закрывают пакеты с крупой, кофе и снеками.'},
-{id:'shchetki',cat:'bath',name:'Органайзер для зубных щёток',price:549,old:990,hit:1,rating:4.9,rc:45,full:1,
+ faq:[['Поместятся ли большие салфетки?','Да, салфетки 33 × 33 см, сложенные вчетверо, встают свободно.'],['Не выцветет ли цвет?','Пластик окрашен в массе, а не покрыт краской, поэтому не стирается и не облезает.'],['Нужен другой цвет?','Печатаем под заказ: напишите цвет в комментарии, отправим за 48 часов.']]},
+{id:'zubochist',cat:'kitchen',name:'Салфетница с отделением для зубочисток',price:379,old:699,hit:1,v:[['Белая','#F2EFE9',569743685,'07'],['Серая','#9A9A96',832718496,38]],desc:'Салфетница и подставка для зубочисток в одном предмете — меньше вещей на столе.'},
+{id:'elochka',cat:'kitchen',name:'Салфетница новогодняя «Ёлочка»',price:450,v:[['Белая','#F2EFE9',665236987,'09']],desc:'Сезонный хит: праздничная сервировка стола без лишнего декора.'},
+{id:'zazhim',cat:'kitchen',name:'Зажимы для пакетов, 10 шт.',price:340,v:[['','#ccc',1047164288,10]],desc:'Плотно закрывают пакеты с крупой, кофе и снеками.'},
+{id:'shchetki',cat:'bath',name:'Органайзер для зубных щёток',price:549,old:990,hit:1,full:1,
  v:[['Вариант 1','#D9C7A7',994470433,15],['Вариант 2','#8FA38A',994470435,17]],
  desc:'Органайзер на четыре щётки и тюбик пасты: щётки стоят вертикально и не касаются друг друга, вода стекает через отверстия в дне. Раковина остаётся свободной, а ванная выглядит аккуратно.',
  use:['Семейная ванная на 2–4 человека','Съёмная квартира: не нужно сверлить стену','Гостевой санузел'],
  specs:[['Материал','PETG, не боится воды'],['Отделения','4 для щёток + 1 для пасты'],['Дренаж','отверстия в дне'],['Уход','можно мыть под проточной водой'],['Установка','ставится на полку или раковину'],['Производство','Санкт-Петербург, собственная мастерская']],
- faq:[['Подойдут электрические щётки?','Да, отверстия рассчитаны на ручку электрической щётки.'],['Не заводится ли плесень?','Вода уходит через дренаж, дно легко промыть.'],['Можно другой цвет?','Да, печатаем под заказ в любом цвете из палитры.']],
- revs:[['Анна','Наконец-то порядок у раковины, щётки не падают.'],['Игорь','Удобно мыть, стоит устойчиво. Брали в ванную детям.']]},
-{id:'vata',cat:'bath',name:'Органайзер для ватных палочек и дисков',price:343,rating:4.9,rc:45,v:[['','#ccc',1037007476,58]],desc:'Две секции: палочки и диски всегда под рукой.'},
-{id:'dozator',cat:'bath',name:'Дозатор-шарик для стирального геля',price:412,old:790,hit:1,rating:4.8,rc:219,v:[['Белый','#F2EFE9',955119133,15]],desc:'Кладётся в барабан вместе с бельём: экономит гель и порошок.'},
-{id:'kryuchki',cat:'bath',name:'Крючки настенные, 4 шт. с крепежом',price:227,old:690,rating:4.9,rc:118,v:[['Белые','#F2EFE9',532787048,10]],desc:'Прочные крючки для полотенец и халатов, саморезы в комплекте.'},
-{id:'dino',cat:'kids',name:'Стакан для карандашей «Динозавр»',price:525,rating:5.0,rc:9,v:[['Зелёный','#5E9E4E',816012676,18],['Красный','#C8322B',824695430,52],['Рыжий','#E8732C',824695431,53]],desc:'Стакан-динозавр для карандашей и кисточек: порядок на детском столе.'},
-{id:'osminog',cat:'kids',name:'Подставка для геймпада «Осьминог»',price:339,rating:5.0,rc:3,v:[['','#ccc',832705337,19]],desc:'Держит геймпад PS5 / Xbox, отличный подарок геймеру.'},
-{id:'serdce',cat:'kids',name:'Светильник «Сердце» с надписью LOVE',price:982,rating:5.0,rc:0,v:[['','#ccc',816020432,34]],desc:'Тёплый ночник-подарок на 14 февраля и день рождения.'},
-{id:'gitara',cat:'kids',name:'Держатель для гитары настенный',price:210,old:990,rating:4.8,rc:13,v:[['Чёрный','#2a2a2a',1020495883,45]],desc:'Крепится к стене, бережно держит гриф гитары.'}];
+ faq:[['Подойдут электрические щётки?','Да, отверстия рассчитаны на ручку электрической щётки.'],['Не заводится ли плесень?','Вода уходит через дренаж, дно легко промыть.'],['Можно другой цвет?','Да, печатаем под заказ в любом цвете из палитры.']]},
+{id:'vata',cat:'bath',name:'Органайзер для ватных палочек и дисков',price:343,v:[['','#ccc',1037007476,58]],desc:'Две секции: палочки и диски всегда под рукой.'},
+{id:'dozator',cat:'bath',name:'Дозатор-шарик для стирального геля',price:412,old:790,hit:1,v:[['Белый','#F2EFE9',955119133,15]],desc:'Кладётся в барабан вместе с бельём: экономит гель и порошок.'},
+{id:'kryuchki',cat:'bath',name:'Крючки настенные, 4 шт. с крепежом',price:227,old:690,v:[['Белые','#F2EFE9',532787048,10]],desc:'Прочные крючки для полотенец и халатов, саморезы в комплекте.'},
+{id:'dino',cat:'kids',name:'Стакан для карандашей «Динозавр»',price:525,v:[['Зелёный','#5E9E4E',816012676,18],['Красный','#C8322B',824695430,52],['Рыжий','#E8732C',824695431,53]],desc:'Стакан-динозавр для карандашей и кисточек: порядок на детском столе.'},
+{id:'osminog',cat:'kids',name:'Подставка для геймпада «Осьминог»',price:339,v:[['','#ccc',832705337,19]],desc:'Держит геймпад PS5 / Xbox, отличный подарок геймеру.'},
+{id:'serdce',cat:'kids',name:'Светильник «Сердце» с надписью LOVE',price:982,v:[['','#ccc',816020432,34]],desc:'Тёплый ночник-подарок на 14 февраля и день рождения.'},
+{id:'gitara',cat:'kids',name:'Держатель для гитары настенный',price:210,old:990,v:[['Чёрный','#2a2a2a',1020495883,45]],desc:'Крепится к стене, бережно держит гриф гитары.'}];
 const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
 const FREE=1500;
 let cart=[];try{cart=JSON.parse(localStorage.getItem('sl_cart2')||'[]')}catch(e){}
@@ -185,16 +183,16 @@ function toast(t){const e=document.getElementById('toast');e.textContent=t;e.cla
 function add(id,vi){vi=vi||0;const k=id+':'+vi;const f=cart.find(x=>x.k===k);const p=P.find(x=>x.id===id);f?f.q++:cart.push({k,id,vi,price:p.price,q:1});save();toast('Добавлено в корзину')}
 // УЛУЧШЕНИЕ 1: точная дата отправки в карточке
 function shipDate(){const d=new Date();d.setDate(d.getDate()+2);return d.toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}
-const rcTxt=p=>p.rc?`★ ${p.rating} · ${p.rc} оценок`:'Новинка';
+const rcTxt=p=>p.hit?'Хит продаж':'Новинка';
 const card=p=>`<div class="pc"><a href="#/product/${p.id}" style="text-decoration:none"><div class="im">${pic(p,0,1,'ph')}</div></a><div class="bd">${p.hit?'<span><span class="tag hit">Хит</span></span>':''}<a href="#/product/${p.id}" style="text-decoration:none;font-weight:600">${p.name}</a><span class="meta">${rcTxt(p)} · отправим ${shipDate()}</span>${p.v.length>1?`<span class="dots">${p.v.map(v=>`<i style="background:${v[1]}"></i>`).join('')}</span>`:''}<span class="pr">${fmt(p.price)} ${p.old?`<s style="font-size:14px;color:#999;font-weight:400">${fmt(p.old)}</s>`:''}</span><button class="add" onclick="add('${p.id}')">В корзину</button></div></div>`;
 
 const R={
 '':()=>{meta('Слойно — дизайнерские мелочи для дома из 3D-печати','Салфетницы, органайзеры для ванной, крючки и подарки, напечатанные на 3D-принтере в Санкт-Петербурге. Цвет на выбор, отправка за 48 часов.');const h=P[0];return`
-<section class="hero"><div><span class="tag">Печатаем в Санкт-Петербурге · 18 000+ проданных вещей</span><h1 style="margin-top:14px">Мелочи для дома, которые выглядят как дизайн</h1><p class="lead">Салфетницы, органайзеры для ванной и подарки из 3D-печати. Цвет на выбор, отправка за 48 часов. Не подошёл цвет — перепечатаем бесплатно.</p><a class="btn" href="#/catalog">Выбрать в каталоге</a> <a class="btn ghost" href="#/catalog/kids">Подарки</a></div><div class="art">${pic(h,0,1,'ph')}</div></section>
+<section class="hero"><div><span class="tag">Печатаем в Санкт-Петербурге</span><h1 style="margin-top:14px">Мелочи для дома, которые выглядят как дизайн</h1><p class="lead">Салфетницы, органайзеры для ванной и подарки из 3D-печати. Цвет на выбор, отправка за 48 часов. Не подошёл цвет — перепечатаем бесплатно.</p><a class="btn" href="#/catalog">Выбрать в каталоге</a> <a class="btn ghost" href="#/catalog/kids">Подарки</a></div><div class="art">${pic(h,0,1,'ph')}</div></section>
 <section class="sec"><h2>Категории</h2><div class="cats">${Object.entries(CATS).map(([k,v])=>{const f=P.find(p=>p.cat==k);return`<a class="cat" href="#/catalog/${k}"><span class="ci2">${pic(f,0,1,'ph')}</span><div><b>${v}</b><br><span class="note">${P.filter(p=>p.cat==k).length} товара</span></div></a>`}).join('')}</div></section>
 <section class="sec"><h2>Хиты продаж</h2><div class="grid">${P.filter(p=>p.hit).map(card).join('')}</div></section>
-<section class="sec"><h2>Почему Слойно</h2><div class="adv"><div><b>4,9 ★</b>средняя оценка покупателей по 2 475 отзывам на Wildberries</div><div><b>48 ч</b>от заказа до отправки, дата видна в каждой карточке</div><div><b>14 дней</b>на бесплатную перепечатку, если не подошёл цвет</div><div><b>1 500 ₽</b>порог бесплатной доставки</div></div></section>
-<section class="sec"><h2>Отзывы</h2><div class="rev"><div>«Очень красивая салфетница, выглядит дороже своей цены. Взяла белую и серую».<br><b>Ольга</b></div><div>«Наконец-то порядок у раковины, щётки не падают».<br><b>Анна</b></div><div>«Дозатор реально экономит гель, кладу прямо в барабан».<br><b>Светлана</b></div></div><p class="note" style="margin-top:8px">Отзывы-образцы для учебного макета; реальные оценки — в магазине OASTORE на Wildberries.</p></section>
+<section class="sec"><h2>Почему Слойно</h2><div class="adv"><div><b>5 цветов</b>и любой оттенок под заказ</div><div><b>48 ч</b>от заказа до отправки, дата видна в каждой карточке</div><div><b>14 дней</b>на бесплатную перепечатку, если не подошёл цвет</div><div><b>1 500 ₽</b>порог бесплатной доставки</div></div></section>
+<section class="sec"><h2>Отзывы</h2><div class="box"><p>Отзывы покупателей появятся здесь после первых заказов на сайте. Купили у нас? <a href="https://t.me/" target="_blank" rel="noopener">Напишите в Telegram</a> — опубликуем ваш отзыв с фото.</p></div></section>
 <section class="sec box" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between"><div><h2 style="margin:0">Скидка 10% на первый заказ</h2><p class="note" style="font-size:15px">Подпишитесь на Telegram-канал: новинки, цвета месяца и закрытые распродажи.</p></div><a class="btn" href="https://t.me/" target="_blank" rel="noopener">Подписаться в Telegram</a></section>`},
 catalog:(c)=>{meta('Каталог — Слойно','Каталог товаров для дома из 3D-печати: салфетницы, органайзеры для ванной, крючки, подарки.');return`
 <div class="crumbs"><a href="#/">Главная</a> / Каталог</div><h1>Каталог</h1>
@@ -204,9 +202,9 @@ catalog:(c)=>{meta('Каталог — Слойно','Каталог товар�
 product:(id)=>{const p=P.find(x=>x.id===id);if(!p)return R['']();meta(p.name+' — купить в Слойно',p.desc.slice(0,150));
  return`<div class="crumbs"><a href="#/">Главная</a> / <a href="#/catalog/${p.cat}">${CATS[p.cat]}</a> / ${p.name}</div>
 <div class="prod"><div class="gal"><div class="main" id="gm">${pic(p,S.c,1,'ph')}</div>
-<div class="thumbs" id="th">${thumbs(p)}</div><p class="note" style="margin-top:8px">Фото: собственные (магазин OASTORE на Wildberries), фон заменён.</p></div>
+<div class="thumbs" id="th">${thumbs(p)}</div><p class="note" style="margin-top:8px">Фото: собственные, фон заменён.</p></div>
 <div><span class="tag">${CATS[p.cat]}</span> ${p.hit?'<span class="tag hit">Хит</span>':''}<h1 style="font-size:clamp(26px,4vw,36px);margin-top:8px">${p.name}</h1>
-<p class="note" style="font-size:14px;margin-top:6px">${rcTxt(p)}${p.revs?' · <a href="#rv">отзывы</a>':''} · Артикул SL-${p.id.toUpperCase()}</p>
+<p class="note" style="font-size:14px;margin-top:6px">${rcTxt(p)} · Артикул SL-${p.id.toUpperCase()}</p>
 <div class="price">${fmt(p.price)}${p.old?`<s>${fmt(p.old)}</s>`:''}</div><p class="note" style="font-size:14px">или 4 платежа по ${fmt(Math.ceil(p.price/4))} · оплата частями</p>
 <div class="ship">✓ В наличии, <b>отправим ${shipDate()}</b><br>Доставка СДЭК/Яндекс 1–6 дней · ПВЗ от 199 ₽ · бесплатно от ${fmt(FREE)}</div>
 ${p.v.length>1?`<div class="opt"><p>Цвет: <b id="cn">${p.v[S.c][0]}</b></p><div class="sw">${p.v.map((v,i)=>`<button class="${i==S.c?'on':''}" style="background:${v[1]}" onclick="pickColor('${p.id}',${i})" aria-label="${v[0]}"></button>`).join('')}</div></div>`:''}
@@ -217,7 +215,7 @@ ${p.use?`<h3 style="margin-top:16px">Где пригодится</h3><ul style="
 ${p.specs?`<h3 style="margin-top:16px">Характеристики</h3><table class="specs">${p.specs.map(s=>`<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`).join('')}</table>`:''}
 ${p.faq?`<h3 style="margin-top:16px">Частые вопросы</h3>${p.faq.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}`:''}
 <p style="margin-top:14px;font-size:14px"><a href="#/delivery">Доставка, оплата и возврат →</a></p></div></div></div>
-${p.revs?`<section class="sec" id="rv"><h2>Отзывы · ★ ${p.rating}</h2><div class="rev">${p.revs.map(r=>`<div>«${r[1]}»<br><b>${r[0]}</b><br><span class="note">Ответ магазина: спасибо, рады, что пригодилось!</span></div>`).join('')}</div><p class="note" style="margin-top:8px">Отзывы-образцы для учебного макета.</p></section>`:''}
+
 <section class="sec"><h2>С этим берут</h2><div class="grid">${P.filter(x=>x.id!==p.id&&x.cat===p.cat).slice(0,4).map(card).join('')}</div></section>`},
 cart:()=>{meta('Корзина — Слойно','Корзина покупателя');if(!cart.length)return`<h1>Корзина</h1><p class="lead">Пока пусто. Загляните в <a href="#/catalog">каталог</a>: хиты отправляем за 48 часов.</p>`;
  const sum=cart.reduce((a,b)=>a+b.price*b.q,0),left=Math.max(0,FREE-sum),disc=promo?Math.round(sum*.1):0;
@@ -254,7 +252,7 @@ delivery:()=>{meta('Доставка и оплата — Слойно','Спос
 <h2>Возврат и перепечатка</h2><ul><li>Не подошёл цвет: в течение 14 дней бесплатно перепечатаем.</li><li>Брак или повреждение при доставке: заменим за наш счёт, нужно только фото.</li><li>Товары, изготовленные по индивидуальному заказу (нестандартный цвет или надпись), возврату не подлежат.</li></ul></div>`},
 about:()=>{meta('О магазине и контакты — Слойно','Мастерская 3D-печати в Санкт-Петербурге: история, реквизиты, контакты и карта.');return`<div class="txt">
 <h1>О магазине</h1><p class="lead">Слойно — мастерская 3D-печати в Санкт-Петербурге. Мы делаем мелочи для кухни, ванной и детской, которые наводят порядок и выглядят как дизайнерские вещи.</p>
-<p>Больше пяти лет мы продаём на Wildberries под брендом OASTORE: 18 000+ проданных вещей, средняя оценка 4,9 по 2 475 отзывам. Сайт — для тех, кто хочет выбрать любой цвет, собрать набор и получить вещь напрямую от мастерской. Каждое изделие печатается слоями по 0,2 мм — отсюда фирменная фактура и название.</p>
+<p>Сайт — для тех, кто хочет выбрать любой цвет, собрать набор и получить вещь напрямую от мастерской. Каждое изделие печатается слоями по 0,2 мм — отсюда фирменная фактура и название.</p>
 <h2>Контакты</h2><table class="tbl"><tr><td>Телефон</td><td>+7 (900) 000-00-00 (учебный)</td></tr><tr><td>Мессенджеры</td><td>Telegram, MAX, ВКонтакте: @sloyno (учебные)</td></tr><tr><td>Почта</td><td>hello@sloyno3d.ru (учебная)</td></tr><tr><td>Мастерская</td><td>Санкт-Петербург, самовывоз по договорённости</td></tr><tr><td>Режим работы</td><td>ежедневно 10:00–20:00</td></tr></table>
 <h2>Реквизиты (учебные)</h2><p>Медетбеков Тилек, плательщик НПД (самозанятый), ИНН 000000000000. Учебный проект, заказы не принимаются.</p>
 <h2>Карта</h2><div style="border-radius:16px;overflow:hidden;border:1px solid var(--line)"><iframe title="Карта" src="https://yandex.ru/map-widget/v1/?ll=30.315868%2C59.939095&z=11" width="100%" height="320" frameborder="0" loading="lazy"></iframe></div></div>`},
@@ -274,7 +272,7 @@ function pickColor(id,i){const p=P.find(x=>x.id===id);S.c=i;document.getElementB
 function q(i,d){cart[i].q+=d;if(cart[i].q<1)cart.splice(i,1);save();route()}
 function applyPromo(){promo=document.getElementById('pc').value.trim().toUpperCase()==='ПЕРВЫЙ';toast(promo?'Промокод применён: −10%':'Промокод не найден');route()}
 function done(e){e.preventDefault();cart=[];save();go('done');return false}
-function drawCat(c){const s=document.getElementById('sort').value;let l=P.filter(p=>!c||p.cat===c);if(s=='asc')l.sort((a,b)=>a.price-b.price);if(s=='desc')l.sort((a,b)=>b.price-a.price);if(s=='pop')l.sort((a,b)=>b.rc-a.rc);document.getElementById('cg').innerHTML=l.map(card).join('')}
+function drawCat(c){const s=document.getElementById('sort').value;let l=P.filter(p=>!c||p.cat===c);if(s=='asc')l.sort((a,b)=>a.price-b.price);if(s=='desc')l.sort((a,b)=>b.price-a.price);if(s=='pop')l.sort((a,b)=>(b.hit||0)-(a.hit||0));document.getElementById('cg').innerHTML=l.map(card).join('')}
 // Навигация без опоры на location.hash: работает и в песочнице (iframe), и на обычном хостинге
 let CUR=(location.hash||'').replace(/^#\/?/,'');
 function go(path){CUR=path.replace(/^#?\/?/,'');try{history.replaceState(null,'','#/'+CUR)}catch(e){}route()}
