@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Слойно — дизайнерские мелочи для дома из 3D-печати</title>
-<meta name="description" content="Органайзеры, кашпо, вазы и подарки, напечатанные на 3D-принтере в Санкт-Петербурге. Цвет на выбор, отправка за 48 часов. Учебный проект.">
+<title>Слойно — 3D-печать вещей для дома на заказ</title>
+<meta name="description" content="Печатаем на 3D-принтере вещи для дома под ваш размер и цвет. Цена по весу от 7 ₽ за грамм, калькулятор онлайн. Учебный проект.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23D2643C'/%3E%3Cpath d='M8 22h16M8 17h16M8 12h16' stroke='%23F5F1EA' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -126,159 +126,194 @@ img.ph{width:100%;height:100%;object-fit:cover;display:block}
   <a class="logo" href="#/"><i><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 12h12M2 8h12M2 4h12" stroke="#F5F1EA" stroke-width="2" stroke-linecap="round"/></svg></i>Слойно</a>
   <button class="burger" aria-label="Меню" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
   <nav>
-    <a href="#/catalog">Каталог</a>
-    <a href="#/delivery">Доставка и оплата</a>
-    <a href="#/about">О магазине и контакты</a>
+    <a href="#/catalog">Примеры работ</a>
+    <a href="#/calc">Калькулятор</a>
+    <a href="#/delivery">Как заказать</a>
+    <a href="#/about">О мастерской</a>
     <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
   </nav>
-  <a class="cartbtn" href="#/cart">Корзина <b id="cc">0</b></a>
+  <a class="cartbtn" href="#/cart">Заказ <b id="cc">0</b></a>
 </div></header>
 
 <main><div class="wrap" id="app"></div></main>
 
 <footer><div class="wrap">
   <div class="ft">
-    <div><b style="color:#fff;font-size:18px">Слойно</b><p style="margin-top:8px">Дизайнерские мелочи для кухни, ванной и детской, напечатанные на 3D-принтере в Санкт-Петербурге.</p></div>
-    <div><a href="#/catalog">Каталог</a><br><a href="#/delivery">Доставка и оплата</a><br><a href="#/about">О магазине и контакты</a><br><a href="#/privacy">Политика обработки ПДн</a></div>
+    <div><b style="color:#fff;font-size:18px">Слойно</b><p style="margin-top:8px">Мастерская 3D-печати в Санкт-Петербурге: печатаем вещи для дома под ваш размер и цвет.</p></div>
+    <div><a href="#/catalog">Примеры работ</a><br><a href="#/calc">Калькулятор</a><br><a href="#/delivery">Как заказать, доставка и оплата</a><br><a href="#/about">О мастерской и контакты</a><br><a href="#/privacy">Политика обработки ПДн</a></div>
     <div>+7 (900) 000-00-00 (учебный)<br>Telegram · ВКонтакте · MAX<br>Ежедневно 10:00–20:00</div>
   </div>
-  <div class="edu"><b>Учебный проект, заказы не принимаются</b><span>Фото товаров собственные. © 2026 Медетбеков Тилек</span></div>
+  <div class="edu"><b>Учебный проект, заказы не принимаются</b><span>Фото: наши изделия, студийная обработка нейросетью. © 2026 Медетбеков Тилек</span></div>
 </div></footer>
 <div class="toast" id="toast"></div>
 
 <script>
-// Фото — собственные фото товаров, фон заменён
-const IMG=(h,id)=>`p_${id}.jpg`;
-function pic(p,vi,n,cls){const v=p.v[vi||0];return `<img class="${cls||''}" src="${IMG(v[3],v[2])}" alt="${p.name}${v[0]?', '+v[0].toLowerCase():''}" loading="lazy">`}
+// Фото примеров: студийная обработка собственных фото изделий (нейросеть), запасной вариант — исходное фото с заменённым фоном
+const CF='https://d8j0ntlcm91z4.cloudfront.net/user_3M6VYIAlIBMt2Y0HqA1dgVTWv3r/hf_';
+const G=['20261120_125703_a1e89f2e-3f7e-4de6-9a74-c88d88a07b45','20261120_125704_297dd36b-53bc-459d-b86b-012e304e627c','20261120_125702_9c66573a-5587-49d2-873f-460c211bd377','20261120_125704_c1384986-3cc6-48b6-a98e-2f8ef5d19a00','20261120_125703_b727b056-e303-4e6f-9ab6-7c906daa4180','20261120_125702_e2b02d7d-95d5-4958-8cb8-dc7bce13a347','20261120_125702_2a927c76-3bcc-4822-b7ba-d76f4759a66c','20261120_125707_f8bbe49f-e1fb-486e-943b-8dcf446bbc6d','20261120_125702_de4bb865-dee9-4b58-afd3-b8482ce29c41','20261120_125702_2da45fca-4afc-4e52-bf11-294559b1510b','20261120_125705_0baae9d8-4c15-40ef-a7e1-a05694211a89','20261120_125704_a03e6a2c-428f-4e21-b161-ebf5f0a6748b','20261120_125716_1556c321-f9db-46c6-b087-af408c877c94','20261120_125718_6ce28740-43f5-4975-a20f-dad350b99a5d','20261120_125717_d003475f-4c6e-425d-86a1-6bbc7abbde78','20261120_125716_3260c353-2e12-4927-97df-3421feaeebaf','20261120_125717_64a8056e-59d9-4583-a26f-9f95ebf378e3','20261120_125717_1bea5b03-b748-4ee1-947d-3389852c6116','20261120_125717_d41f7167-4a6b-409f-b32d-2c78e3d58310'];
+function pic(p,vi,cls){const v=p.v[vi||0];const loc=window.LOCAL_IMG?`g_${v[2]}.jpg`:CF+G[v[2]]+'.png';return `<img class="${cls||'ph'}" src="${loc}" alt="${p.name}${v[0]?', '+v[0].toLowerCase():''}" loading="lazy" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='p_${v[3]}.jpg'}">`}
+
+// ТАРИФЫ (те же, что в расчётной таблице рабочей тетради)
+const T={mat:{PLA:7,PETG:8},post:150,model:{none:0,file:300,sketch:1000},urgent:0.3,min:500,disc:[[50,0.2],[10,0.1]]};
 const CATS={kitchen:'Кухня и столовая',bath:'Ванная и порядок',kids:'Детям и подарки'};
-// v: [название цвета, hex, id фото, -]
+// v: [цвет, hex, № фото, № исходного фото]
 const P=[
-{id:'volna',cat:'kitchen',name:'Салфетница «Волна»',price:362,old:649,hit:1,full:1,
- v:[['Белая','#F2EFE9',563521511,13],['Серая','#9A9A96',569746619,'01'],['Оранжевая','#E8732C',840092285,'07'],['Красная','#C8322B',840092283,'05']],
- desc:'Рельефная салфетница с вертикальными «волнами» — эффект слоистой 3D-печати, который выглядит как дизайнерская керамика. Держит стопку бумажных салфеток любого размера, устойчива и не опрокидывается, когда тянешь салфетку.',
- use:['Обеденный стол и кухонный остров','Кафе и кофейни: в цвет интерьера','Подарок на новоселье в наборе из 2 цветов'],
- specs:[['Материал','PLA/PETG, безопасный для контакта с бытовыми предметами'],['Размер','≈ 18 × 6 × 9 см'],['Подходит','для салфеток 24 × 24 и 33 × 33 см (сложенных)'],['Цвета','белый, серый, оранжевый, красный'],['Уход','протирать влажной салфеткой'],['Производство','Санкт-Петербург, собственная мастерская']],
- faq:[['Поместятся ли большие салфетки?','Да, салфетки 33 × 33 см, сложенные вчетверо, встают свободно.'],['Не выцветет ли цвет?','Пластик окрашен в массе, а не покрыт краской, поэтому не стирается и не облезает.'],['Нужен другой цвет?','Печатаем под заказ: напишите цвет в комментарии, отправим за 48 часов.']]},
-{id:'zubochist',cat:'kitchen',name:'Салфетница с отделением для зубочисток',price:379,old:699,hit:1,v:[['Белая','#F2EFE9',569743685,'07'],['Серая','#9A9A96',832718496,38]],desc:'Салфетница и подставка для зубочисток в одном предмете — меньше вещей на столе.'},
-{id:'elochka',cat:'kitchen',name:'Салфетница новогодняя «Ёлочка»',price:450,v:[['Белая','#F2EFE9',665236987,'09']],desc:'Сезонный хит: праздничная сервировка стола без лишнего декора.'},
-{id:'zazhim',cat:'kitchen',name:'Зажимы для пакетов, 10 шт.',price:340,v:[['','#ccc',1047164288,10]],desc:'Плотно закрывают пакеты с крупой, кофе и снеками.'},
-{id:'shchetki',cat:'bath',name:'Органайзер для зубных щёток',price:549,old:990,hit:1,full:1,
- v:[['Вариант 1','#D9C7A7',994470433,15],['Вариант 2','#8FA38A',994470435,17]],
- desc:'Органайзер на четыре щётки и тюбик пасты: щётки стоят вертикально и не касаются друг друга, вода стекает через отверстия в дне. Раковина остаётся свободной, а ванная выглядит аккуратно.',
- use:['Семейная ванная на 2–4 человека','Съёмная квартира: не нужно сверлить стену','Гостевой санузел'],
- specs:[['Материал','PETG, не боится воды'],['Отделения','4 для щёток + 1 для пасты'],['Дренаж','отверстия в дне'],['Уход','можно мыть под проточной водой'],['Установка','ставится на полку или раковину'],['Производство','Санкт-Петербург, собственная мастерская']],
- faq:[['Подойдут электрические щётки?','Да, отверстия рассчитаны на ручку электрической щётки.'],['Не заводится ли плесень?','Вода уходит через дренаж, дно легко промыть.'],['Можно другой цвет?','Да, печатаем под заказ в любом цвете из палитры.']]},
-{id:'vata',cat:'bath',name:'Органайзер для ватных палочек и дисков',price:343,v:[['','#ccc',1037007476,58]],desc:'Две секции: палочки и диски всегда под рукой.'},
-{id:'dozator',cat:'bath',name:'Дозатор-шарик для стирального геля',price:412,old:790,hit:1,v:[['Белый','#F2EFE9',955119133,15]],desc:'Кладётся в барабан вместе с бельём: экономит гель и порошок.'},
-{id:'kryuchki',cat:'bath',name:'Крючки настенные, 4 шт. с крепежом',price:227,old:690,v:[['Белые','#F2EFE9',532787048,10]],desc:'Прочные крючки для полотенец и халатов, саморезы в комплекте.'},
-{id:'dino',cat:'kids',name:'Стакан для карандашей «Динозавр»',price:525,v:[['Зелёный','#5E9E4E',816012676,18],['Красный','#C8322B',824695430,52],['Рыжий','#E8732C',824695431,53]],desc:'Стакан-динозавр для карандашей и кисточек: порядок на детском столе.'},
-{id:'osminog',cat:'kids',name:'Подставка для геймпада «Осьминог»',price:339,v:[['','#ccc',832705337,19]],desc:'Держит геймпад PS5 / Xbox, отличный подарок геймеру.'},
-{id:'serdce',cat:'kids',name:'Светильник «Сердце» с надписью LOVE',price:982,v:[['','#ccc',816020432,34]],desc:'Тёплый ночник-подарок на 14 февраля и день рождения.'},
-{id:'gitara',cat:'kids',name:'Держатель для гитары настенный',price:210,old:990,v:[['Чёрный','#2a2a2a',1020495883,45]],desc:'Крепится к стене, бережно держит гриф гитары.'}];
-const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
+{id:'volna',cat:'kitchen',name:'Салфетница «Волна»',mat:'PETG',g:90,h:5,post:0,ext:0,hit:1,
+ v:[['Белая','#F2EFE9',0,563521511],['Серая','#9A9A96',1,569746619],['Оранжевая','#E8732C',2,840092285],['Красная','#C8322B',3,840092283]],
+ desc:'Рельефная салфетница с вертикальными «волнами» — фактура слоёв 3D-печати выглядит как дизайнерская керамика. Держит салфетки любого размера и не опрокидывается.',
+ use:['Обеденный стол и кухонный остров','Кафе и кофейни: в цвет интерьера, от 10 шт. со скидкой','Подарок на новоселье'],
+ specs:[['Материал','PETG: не боится воды и солнца'],['Размер','≈ 18 × 6 × 9 см, можно увеличить или уменьшить'],['Вес изделия','≈ 90 г'],['Время печати','≈ 5 часов'],['Цвета','любой из палитры 20 цветов']],
+ faq:[['Можно другой размер?','Да: размер меняем в модели, цена пересчитывается по весу в калькуляторе.'],['Можно логотип кафе?','Да, рельефный логотип на боковой стенке: моделирование по эскизу.'],['Не выцветет ли цвет?','Пластик окрашен в массе, цвет не стирается.']]},
+{id:'zubochist',cat:'kitchen',name:'Салфетница с отделением для зубочисток',mat:'PETG',g:110,h:6,post:0,ext:0,hit:1,v:[['Белая','#F2EFE9',4,569743685],['Серая','#9A9A96',5,832718496]],desc:'Салфетница и подставка для зубочисток в одном предмете.'},
+{id:'elochka',cat:'kitchen',name:'Салфетница «Ёлочка»',mat:'PLA',g:80,h:4.5,post:0,ext:0,v:[['Белая','#F2EFE9',6,665236987]],desc:'Праздничная сервировка стола: печатали партию к Новому году.'},
+{id:'zazhim',cat:'kitchen',name:'Зажимы для пакетов, 10 шт.',mat:'PLA',g:40,h:2,post:0,ext:0,v:[['','#ccc',7,1047164288]],desc:'Плотно закрывают пакеты с крупой и кофе.'},
+{id:'shchetki',cat:'bath',name:'Органайзер для зубных щёток',mat:'PETG',g:120,h:7,post:0,ext:0,hit:1,
+ v:[['Вариант 1','#D9C7A7',8,994470433],['Вариант 2','#8FA38A',9,994470435]],
+ desc:'Органайзер на четыре щётки и тюбик пасты: щётки стоят вертикально, вода уходит через дренаж. Можно напечатать под нужное число щёток.',
+ use:['Семейная ванная на 2–4 человека','Съёмная квартира: без сверления','Гостевой санузел'],
+ specs:[['Материал','PETG, не боится воды'],['Отделения','4 + паста (меняем под заказ)'],['Вес изделия','≈ 120 г'],['Время печати','≈ 7 часов'],['Цвета','любой из палитры']],
+ faq:[['Подойдут электрические щётки?','Да, отверстия под ручку электрической щётки.'],['Можно на 2 или 6 щёток?','Да, меняем модель: цена считается по весу.'],['Не будет плесени?','Вода уходит через дренаж, дно легко промыть.']]},
+{id:'vata',cat:'bath',name:'Органайзер для ватных палочек и дисков',mat:'PETG',g:70,h:4,post:0,ext:0,v:[['','#ccc',10,1037007476]],desc:'Две секции: палочки и диски под рукой.'},
+{id:'dozator',cat:'bath',name:'Дозатор-шарик для стирального геля',mat:'PETG',g:45,h:3,post:1,ext:0,hit:1,v:[['Белый','#F2EFE9',11,955119133]],desc:'Кладётся в барабан вместе с бельём, экономит гель.'},
+{id:'kryuchki',cat:'bath',name:'Крючки настенные, 4 шт.',mat:'PETG',g:30,h:2,post:0,ext:0,v:[['Белые','#F2EFE9',12,532787048]],desc:'Для полотенец и халатов, крепёж в комплекте.'},
+{id:'dino',cat:'kids',name:'Стакан для карандашей «Динозавр»',mat:'PLA',g:85,h:6,post:1,ext:0,v:[['Зелёный','#5E9E4E',13,816012676],['Красный','#C8322B',14,824695430],['Оранжевый','#E8732C',15,824695431]],desc:'Порядок на детском столе.'},
+{id:'osminog',cat:'kids',name:'Подставка для геймпада «Осьминог»',mat:'PLA',g:60,h:4,post:1,ext:0,v:[['','#ccc',16,832705337]],desc:'Подарок геймеру: держит геймпад PS5 / Xbox.'},
+{id:'serdce',cat:'kids',name:'Ночник «Сердце»',mat:'PLA',g:110,h:7,post:0,ext:250,v:[['','#ccc',17,816020432]],desc:'Тёплый ночник-подарок, LED-модуль в комплекте (+250 ₽).'},
+{id:'gitara',cat:'kids',name:'Держатель для гитары настенный',mat:'PETG',g:45,h:3,post:0,ext:0,v:[['Чёрный','#2a2a2a',18,1020495883]],desc:'Бережно держит гриф гитары на стене.'}];
+const fmt=n=>Math.round(n).toLocaleString('ru-RU')+' ₽';
+const unit=p=>p.g*T.mat[p.mat]+p.post*T.post+p.ext;
+// Полный расчёт заказа
+function quote(o){const u=o.g*T.mat[o.mat]+(o.post?T.post:0)+(o.ext||0);let sum=u*o.qty;let d=0;for(const [n,k] of T.disc)if(o.qty>=n){d=k;break}
+ const disc=sum*d;let s=sum-disc+T.model[o.model||'none'];const urg=o.urgent?s*T.urgent:0;s+=urg;const min=Math.max(0,T.min-s);
+ return {u,sum,disc,d,model:T.model[o.model||'none'],urg,min,total:s+min}}
 const FREE=1500;
-let cart=[];try{cart=JSON.parse(localStorage.getItem('sl_cart2')||'[]')}catch(e){}
-const save=()=>{try{localStorage.setItem('sl_cart2',JSON.stringify(cart))}catch(e){};document.getElementById('cc').textContent=cart.reduce((a,b)=>a+b.q,0)};
+const dq=q=>{for(const [n,k] of T.disc)if(q>=n)return k;return 0};const lineT=it=>it.price*it.q*(1-dq(it.q));
+let cart=[];try{cart=JSON.parse(localStorage.getItem('sl_cart3')||'[]')}catch(e){}
+const save=()=>{try{localStorage.setItem('sl_cart3',JSON.stringify(cart))}catch(e){};document.getElementById('cc').textContent=cart.reduce((a,b)=>a+b.q,0)};
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1800)}
-function add(id,vi){vi=vi||0;const k=id+':'+vi;const f=cart.find(x=>x.k===k);const p=P.find(x=>x.id===id);f?f.q++:cart.push({k,id,vi,price:p.price,q:1});save();toast('Добавлено в корзину')}
-// УЛУЧШЕНИЕ 1: точная дата отправки в карточке
-function shipDate(){const d=new Date();d.setDate(d.getDate()+2);return d.toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}
-const rcTxt=p=>p.hit?'Хит продаж':'Новинка';
-const card=p=>`<div class="pc"><a href="#/product/${p.id}" style="text-decoration:none"><div class="im">${pic(p,0,1,'ph')}</div></a><div class="bd">${p.hit?'<span><span class="tag hit">Хит</span></span>':''}<a href="#/product/${p.id}" style="text-decoration:none;font-weight:600">${p.name}</a><span class="meta">${rcTxt(p)} · отправим ${shipDate()}</span>${p.v.length>1?`<span class="dots">${p.v.map(v=>`<i style="background:${v[1]}"></i>`).join('')}</span>`:''}<span class="pr">${fmt(p.price)} ${p.old?`<s style="font-size:14px;color:#999;font-weight:400">${fmt(p.old)}</s>`:''}</span><button class="add" onclick="add('${p.id}')">В корзину</button></div></div>`;
+function add(id,vi){vi=vi||0;const k=id+':'+vi;const f=cart.find(x=>x.k===k);const p=P.find(x=>x.id===id);f?f.q++:cart.push({k,id,vi,price:unit(p),q:1});save();toast('Добавлено в заказ')}
+function shipDate(h){const d=new Date();d.setDate(d.getDate()+2);return d.toLocaleDateString('ru-RU',{day:'numeric',month:'long'})}
+const card=p=>`<div class="pc"><a href="#/product/${p.id}" style="text-decoration:none"><div class="im">${pic(p,0)}</div></a><div class="bd">${p.hit?'<span><span class="tag hit">Часто заказывают</span></span>':''}<a href="#/product/${p.id}" style="text-decoration:none;font-weight:600">${p.name}</a><span class="meta">${p.mat} · ${p.g} г · печать ≈ ${String(p.h).replace('.',',')} ч</span>${p.v.length>1?`<span class="dots">${p.v.map(v=>`<i style="background:${v[1]}"></i>`).join('')}</span>`:''}<span class="pr">${fmt(unit(p))}</span><button class="add" onclick="add('${p.id}')">Заказать такой же</button></div></div>`;
+const tariffTable=()=>`<table class="tbl"><tr><th>Позиция</th><th>Цена</th></tr>
+<tr><td>Печать из PLA (декор, подарки, детские вещи)</td><td>${T.mat.PLA} ₽ за грамм изделия</td></tr>
+<tr><td>Печать из PETG (кухня, ванная, вода и солнце)</td><td>${T.mat.PETG} ₽ за грамм изделия</td></tr>
+<tr><td>Постобработка (удаление поддержек, шлифовка)</td><td>${T.post} ₽ за изделие, если нужна</td></tr>
+<tr><td>Подготовка модели: пример с сайта / ваш 3D-файл / моделирование по фото или эскизу</td><td>0 / ${T.model.file} ₽ / от ${fmt(T.model.sketch)}</td></tr>
+<tr><td>Тираж от 10 шт. / от 50 шт.</td><td>−10% / −20%</td></tr>
+<tr><td>Срочно (печать за 24 часа)</td><td>+30%</td></tr>
+<tr><td>Минимальная сумма заказа</td><td>${fmt(T.min)}</td></tr></table>
+<p class="note">Для сравнения: печать на заказ в Санкт-Петербурге стоит 9–11 ₽ за грамм (3D Кузня, Технопарк СПб, 2026).</p>`;
 
 const R={
-'':()=>{meta('Слойно — дизайнерские мелочи для дома из 3D-печати','Салфетницы, органайзеры для ванной, крючки и подарки, напечатанные на 3D-принтере в Санкт-Петербурге. Цвет на выбор, отправка за 48 часов.');const h=P[0];return`
-<section class="hero"><div><span class="tag">Печатаем в Санкт-Петербурге</span><h1 style="margin-top:14px">Мелочи для дома, которые выглядят как дизайн</h1><p class="lead">Салфетницы, органайзеры для ванной и подарки из 3D-печати. Цвет на выбор, отправка за 48 часов. Не подошёл цвет — перепечатаем бесплатно.</p><a class="btn" href="#/catalog">Выбрать в каталоге</a> <a class="btn ghost" href="#/catalog/kids">Подарки</a></div><div class="art">${pic(h,0,1,'ph')}</div></section>
-<section class="sec"><h2>Категории</h2><div class="cats">${Object.entries(CATS).map(([k,v])=>{const f=P.find(p=>p.cat==k);return`<a class="cat" href="#/catalog/${k}"><span class="ci2">${pic(f,0,1,'ph')}</span><div><b>${v}</b><br><span class="note">${P.filter(p=>p.cat==k).length} товара</span></div></a>`}).join('')}</div></section>
-<section class="sec"><h2>Хиты продаж</h2><div class="grid">${P.filter(p=>p.hit).map(card).join('')}</div></section>
-<section class="sec"><h2>Почему Слойно</h2><div class="adv"><div><b>5 цветов</b>и любой оттенок под заказ</div><div><b>48 ч</b>от заказа до отправки, дата видна в каждой карточке</div><div><b>14 дней</b>на бесплатную перепечатку, если не подошёл цвет</div><div><b>1 500 ₽</b>порог бесплатной доставки</div></div></section>
-<section class="sec"><h2>Отзывы</h2><div class="box"><p>Отзывы покупателей появятся здесь после первых заказов на сайте. Купили у нас? <a href="https://t.me/" target="_blank" rel="noopener">Напишите в Telegram</a> — опубликуем ваш отзыв с фото.</p></div></section>
-<section class="sec box" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between"><div><h2 style="margin:0">Скидка 10% на первый заказ</h2><p class="note" style="font-size:15px">Подпишитесь на Telegram-канал: новинки, цвета месяца и закрытые распродажи.</p></div><a class="btn" href="https://t.me/" target="_blank" rel="noopener">Подписаться в Telegram</a></section>`},
-catalog:(c)=>{meta('Каталог — Слойно','Каталог товаров для дома из 3D-печати: салфетницы, органайзеры для ванной, крючки, подарки.');return`
-<div class="crumbs"><a href="#/">Главная</a> / Каталог</div><h1>Каталог</h1>
+'':()=>{meta('Слойно — 3D-печать вещей для дома на заказ в Санкт-Петербурге','Печатаем на 3D-принтере вещи для дома под ваш размер и цвет: салфетницы, органайзеры, крючки, подарки. Цена по весу от 7 ₽ за грамм, калькулятор онлайн.');return`
+<section class="hero"><div><span class="tag">3D-печать на заказ · Санкт-Петербург</span><h1 style="margin-top:14px">Напечатаем вещь для дома под ваш размер и цвет</h1><p class="lead">Выберите пример или пришлите свою идею: фото, эскиз или 3D-файл. Цена по весу изделия от 7 ₽ за грамм, печать за 1–2 дня.</p><a class="btn" href="#/calc">Рассчитать стоимость</a> <a class="btn ghost" href="#/catalog">Смотреть примеры</a></div><div class="art">${pic(P[0],2)}</div></section>
+<section class="sec"><h2>Как это работает</h2><div class="adv"><div><b>1</b>Выберите пример с сайта или пришлите фото, эскиз, 3D-файл</div><div><b>2</b>Калькулятор сразу покажет цену, мастер подтвердит за 15 минут</div><div><b>3</b>Печатаем 1–2 дня в нужном цвете и размере</div><div><b>4</b>Доставка по России или самовывоз в СПб</div></div></section>
+<section class="sec"><h2>Что можно напечатать</h2><div class="cats">${Object.entries(CATS).map(([k,v])=>{const f=P.find(p=>p.cat==k);return`<a class="cat" href="#/catalog/${k}"><span class="ci2">${pic(f,0)}</span><div><b>${v}</b><br><span class="note">${P.filter(p=>p.cat==k).length} примера</span></div></a>`}).join('')}</div></section>
+<section class="sec"><h2>Часто заказывают</h2><div class="grid">${P.filter(p=>p.hit).map(card).join('')}</div></section>
+<section class="sec"><h2>Тарифы</h2>${tariffTable()}</section>
+<section class="sec"><h2>Отзывы</h2><div class="box"><p>Отзывы клиентов появятся здесь после первых заказов через сайт. Заказали у нас? <a href="https://t.me/" target="_blank" rel="noopener">Пришлите фото в Telegram</a> — опубликуем.</p></div></section>
+<section class="sec box" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between"><div><h2 style="margin:0">Есть идея, но нет модели?</h2><p class="note" style="font-size:15px">Пришлите фото или эскиз: смоделируем и напечатаем. Первый расчёт бесплатно.</p></div><a class="btn" href="#/checkout">Отправить заявку</a></section>`},
+catalog:(c)=>{meta('Примеры работ — Слойно','Примеры вещей для дома, напечатанных на 3D-принтере: цена, вес, материал и время печати каждого изделия.');return`
+<div class="crumbs"><a href="#/">Главная</a> / Примеры работ</div><h1>Примеры работ</h1><p class="lead">Это вещи, которые мы уже печатали. Любую можно заказать такой же или изменить размер, цвет и детали.</p>
 <div class="tools">${[['','Все'],...Object.entries(CATS)].map(([k,v])=>`<button class="chip ${(c||'')===k?'on':''}" onclick="go('catalog${k?'/'+k:''}')">${v}</button>`).join('')}
 <select id="sort" onchange="drawCat('${c||''}')"><option value="pop">Сначала популярные</option><option value="asc">Сначала дешевле</option><option value="desc">Сначала дороже</option></select></div>
 <div class="grid" id="cg"></div>`},
-product:(id)=>{const p=P.find(x=>x.id===id);if(!p)return R['']();meta(p.name+' — купить в Слойно',p.desc.slice(0,150));
+product:(id)=>{const p=P.find(x=>x.id===id);if(!p)return R['']();meta(p.name+' — напечатать на 3D-принтере, Слойно',p.desc.slice(0,150));const q=quote({g:p.g,mat:p.mat,post:p.post,ext:p.ext,qty:1});
  return`<div class="crumbs"><a href="#/">Главная</a> / <a href="#/catalog/${p.cat}">${CATS[p.cat]}</a> / ${p.name}</div>
-<div class="prod"><div class="gal"><div class="main" id="gm">${pic(p,S.c,1,'ph')}</div>
-<div class="thumbs" id="th">${thumbs(p)}</div><p class="note" style="margin-top:8px">Фото: собственные, фон заменён.</p></div>
-<div><span class="tag">${CATS[p.cat]}</span> ${p.hit?'<span class="tag hit">Хит</span>':''}<h1 style="font-size:clamp(26px,4vw,36px);margin-top:8px">${p.name}</h1>
-<p class="note" style="font-size:14px;margin-top:6px">${rcTxt(p)} · Артикул SL-${p.id.toUpperCase()}</p>
-<div class="price">${fmt(p.price)}${p.old?`<s>${fmt(p.old)}</s>`:''}</div><p class="note" style="font-size:14px">или 4 платежа по ${fmt(Math.ceil(p.price/4))} · оплата частями</p>
-<div class="ship">✓ В наличии, <b>отправим ${shipDate()}</b><br>Доставка СДЭК/Яндекс 1–6 дней · ПВЗ от 199 ₽ · бесплатно от ${fmt(FREE)}</div>
-${p.v.length>1?`<div class="opt"><p>Цвет: <b id="cn">${p.v[S.c][0]}</b></p><div class="sw">${p.v.map((v,i)=>`<button class="${i==S.c?'on':''}" style="background:${v[1]}" onclick="pickColor('${p.id}',${i})" aria-label="${v[0]}"></button>`).join('')}</div></div>`:''}
-<div class="buy"><button class="btn" onclick="add('${p.id}',S.c)">В корзину</button><button class="btn ghost" onclick="add('${p.id}',S.c);go('checkout')">Купить в 1 клик</button></div>
-<p class="note" style="margin-top:12px">Не знаете, какой выбрать? <a href="https://t.me/" target="_blank" rel="noopener">Спросите мастера в Telegram</a>, отвечаем за 15 минут.</p>
+<div class="prod"><div class="gal"><div class="main" id="gm">${pic(p,S.c)}</div>
+<div class="thumbs" id="th">${thumbs(p)}</div><p class="note" style="margin-top:8px">Фото: наше изделие, студийная обработка нейросетью.</p></div>
+<div><span class="tag">${CATS[p.cat]}</span> ${p.hit?'<span class="tag hit">Часто заказывают</span>':''}<h1 style="font-size:clamp(26px,4vw,36px);margin-top:8px">${p.name}</h1>
+<p class="note" style="font-size:14px;margin-top:6px">Пример работы · ${p.mat} · ${p.g} г · печать ≈ ${String(p.h).replace('.',',')} ч</p>
+<div class="price">${fmt(unit(p))}</div><p class="note" style="font-size:14px">за 1 шт. · от 10 шт. −10%, от 50 шт. −20%</p>
+<div class="ship">✓ Напечатаем и <b>отправим ${shipDate()}</b><br>Доставка СДЭК/Яндекс 1–6 дней · бесплатно от ${fmt(FREE)}</div>
+<details open style="border:0;padding:0;margin:8px 0"><summary>Из чего складывается цена</summary><table class="specs" style="margin-top:6px"><tr><td>Пластик ${p.mat}: ${p.g} г × ${T.mat[p.mat]} ₽</td><td>${fmt(p.g*T.mat[p.mat])}</td></tr>${p.post?`<tr><td>Постобработка</td><td>${fmt(T.post)}</td></tr>`:''}${p.ext?`<tr><td>Комплектующие (LED-модуль)</td><td>${fmt(p.ext)}</td></tr>`:''}<tr><td>Подготовка модели</td><td>0 ₽ — модель готова</td></tr><tr><td><b>Итого за 1 шт.</b></td><td><b>${fmt(unit(p))}</b></td></tr></table></details>
+${p.v.length>1?`<div class="opt"><p>Цвет: <b id="cn">${p.v[S.c][0]}</b> · другие цвета — под заказ</p><div class="sw">${p.v.map((v,i)=>`<button class="${i==S.c?'on':''}" style="background:${v[1]}" onclick="pickColor('${p.id}',${i})" aria-label="${v[0]}"></button>`).join('')}</div></div>`:''}
+<div class="buy"><button class="btn" onclick="add('${p.id}',S.c)">Заказать такой же</button><a class="btn ghost" href="#/calc/${p.id}">Изменить и рассчитать</a></div>
 <div style="margin-top:22px"><h3>Описание</h3><p style="margin-top:6px">${p.desc}</p>
 ${p.use?`<h3 style="margin-top:16px">Где пригодится</h3><ul style="padding-left:20px;margin-top:6px">${p.use.map(u=>`<li>${u}</li>`).join('')}</ul>`:''}
 ${p.specs?`<h3 style="margin-top:16px">Характеристики</h3><table class="specs">${p.specs.map(s=>`<tr><td>${s[0]}</td><td>${s[1]}</td></tr>`).join('')}</table>`:''}
 ${p.faq?`<h3 style="margin-top:16px">Частые вопросы</h3>${p.faq.map(f=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('')}`:''}
-<p style="margin-top:14px;font-size:14px"><a href="#/delivery">Доставка, оплата и возврат →</a></p></div></div></div>
-
-<section class="sec"><h2>С этим берут</h2><div class="grid">${P.filter(x=>x.id!==p.id&&x.cat===p.cat).slice(0,4).map(card).join('')}</div></section>`},
-cart:()=>{meta('Корзина — Слойно','Корзина покупателя');if(!cart.length)return`<h1>Корзина</h1><p class="lead">Пока пусто. Загляните в <a href="#/catalog">каталог</a>: хиты отправляем за 48 часов.</p>`;
- const sum=cart.reduce((a,b)=>a+b.price*b.q,0),left=Math.max(0,FREE-sum),disc=promo?Math.round(sum*.1):0;
- return`<h1>Корзина</h1><div class="cart" style="margin-top:20px"><div class="box">${cart.map((it,i)=>{const p=P.find(x=>x.id===it.id);const v=p.v[it.vi]||p.v[0];return`<div class="ci"><div class="im">${pic(p,it.vi,1,'ph')}</div><div><b>${p.name}</b><br><span class="note">${v[0]||''}</span><div class="qty"><button onclick="q(${i},-1)">−</button>${it.q}<button onclick="q(${i},1)">+</button> <button class="del" onclick="q(${i},-999)">Удалить</button></div></div><b>${fmt(it.price*it.q)}</b></div>`}).join('')}</div>
+<p style="margin-top:14px;font-size:14px"><a href="#/delivery">Как заказать, доставка и оплата →</a></p></div></div></div>
+<section class="sec"><h2>Ещё примеры</h2><div class="grid">${P.filter(x=>x.id!==p.id&&x.cat===p.cat).slice(0,4).map(card).join('')}</div></section>`},
+calc:(id)=>{meta('Калькулятор стоимости 3D-печати — Слойно','Рассчитайте стоимость печати на 3D-принтере: материал, вес, количество, постобработка, срочность.');const p=P.find(x=>x.id===id)||{g:100,mat:'PETG',post:0,name:''};return`
+<div class="crumbs"><a href="#/">Главная</a> / Калькулятор</div><h1>Калькулятор стоимости</h1><p class="lead">Вес изделия подскажет мастер по вашему файлу или фото. Для примеров с сайта он уже подставлен.</p>
+<div class="cart" style="margin-top:12px"><div class="box form" style="max-width:none">
+<label>Пример с сайта (необязательно)<select id="c_ex" onchange="exPick(this.value)"><option value="">— своя вещь —</option>${P.map(x=>`<option value="${x.id}" ${x.id===id?'selected':''}>${x.name}</option>`).join('')}</select></label>
+<label>Материал<select id="c_mat" onchange="calc()"><option value="PETG" ${p.mat==='PETG'?'selected':''}>PETG — ${T.mat.PETG} ₽/г (вода, солнце, кухня, ванная)</option><option value="PLA" ${p.mat==='PLA'?'selected':''}>PLA — ${T.mat.PLA} ₽/г (декор, подарки)</option></select></label>
+<label>Вес одного изделия, г<input id="c_g" type="number" min="5" max="2000" value="${p.g}" oninput="calc()"></label>
+<label>Количество, шт.<input id="c_q" type="number" min="1" max="1000" value="1" oninput="calc()"></label>
+<label>Модель<select id="c_model" onchange="calc()"><option value="none">Пример с сайта — 0 ₽</option><option value="file">Мой 3D-файл (проверка и подготовка) — ${T.model.file} ₽</option><option value="sketch">Моделирование по фото или эскизу — от ${fmt(T.model.sketch)}</option></select></label>
+<label class="chk"><input id="c_post" type="checkbox" ${p.post?'checked':''} onchange="calc()"> <span>Постобработка: удаление поддержек и шлифовка (+${T.post} ₽/шт.)</span></label>
+<label class="chk"><input id="c_urg" type="checkbox" onchange="calc()"> <span>Срочно, за 24 часа (+30%)</span></label></div>
+<div class="box" id="c_res"></div></div>
+<section class="sec"><h2>Тарифы</h2>${tariffTable()}</section>`},
+cart:()=>{meta('Заказ — Слойно','Состав заказа');if(!cart.length)return`<h1>Заказ</h1><p class="lead">Пока пусто. Выберите <a href="#/catalog">пример работы</a> или <a href="#/calc">рассчитайте свою вещь</a>.</p>`;
+ const sum=cart.reduce((a,b)=>a+lineT(b),0),left=Math.max(0,FREE-sum),disc=promo?Math.round(sum*.1):0,min=Math.max(0,T.min-sum);
+ return`<h1>Заказ</h1><div class="cart" style="margin-top:20px"><div class="box">${cart.map((it,i)=>{const p=P.find(x=>x.id===it.id);const v=p.v[it.vi]||p.v[0];return`<div class="ci"><div class="im">${pic(p,it.vi)}</div><div><b>${p.name}</b><br><span class="note">${v[0]||''} ${p.mat} · ${p.g} г</span><div class="qty"><button onclick="q(${i},-1)">−</button>${it.q}<button onclick="q(${i},1)">+</button> <button class="del" onclick="q(${i},-999)">Удалить</button></div></div><b>${fmt(lineT(it))}</b>${dq(it.q)?`<br><span class="note">тираж −${dq(it.q)*100}%</span>`:''}</div>`}).join('')}</div>
 <div class="box"><b>Итого</b>${left?`<p class="note" style="margin-top:8px">До бесплатной доставки осталось <b>${fmt(left)}</b></p>`:`<p class="note" style="margin-top:8px;color:#3d6b35"><b>Доставка бесплатная</b></p>`}<div class="bar"><i style="width:${Math.min(100,sum/FREE*100)}%"></i></div>
-<div class="row"><span>Товары</span><span>${fmt(sum)}</span></div>${disc?`<div class="row"><span>Промокод ПЕРВЫЙ</span><span>−${fmt(disc)}</span></div>`:''}<div class="row"><span>Доставка</span><span>${left?'от 199 ₽':'0 ₽'}</span></div><div class="row" style="font-size:20px;font-weight:800"><span>К оплате</span><span>${fmt(sum-disc+(left?199:0))}</span></div>
+<div class="row"><span>Печать</span><span>${fmt(sum)}</span></div>${min?`<div class="row"><span>До минимального заказа</span><span>+${fmt(min)}</span></div>`:''}${disc?`<div class="row"><span>Промокод ПЕРВЫЙ</span><span>−${fmt(disc)}</span></div>`:''}<div class="row"><span>Доставка</span><span>${left?'от 199 ₽':'0 ₽'}</span></div><div class="row" style="font-size:20px;font-weight:800"><span>К оплате</span><span>${fmt(sum+min-disc+(left?199:0))}</span></div>
 <div style="display:flex;gap:8px;margin:12px 0"><input id="pc" placeholder="Промокод (ПЕРВЫЙ)"><button class="chip" onclick="applyPromo()">Применить</button></div>
 <a class="btn" style="width:100%;text-align:center" href="#/checkout">Оформить заказ</a></div></div>`},
-checkout:()=>{meta('Оформление заказа — Слойно','Оформление заказа без регистрации');if(!cart.length)return R.cart();const sum=cart.reduce((a,b)=>a+b.price*b.q,0);return`
-<h1>Оформление заказа</h1><p class="lead">Без регистрации, 3 поля. Тестовый режим: реальная оплата не подключена.</p>
+checkout:()=>{meta('Оформление заказа и заявка — Слойно','Оформление заказа на 3D-печать без регистрации, заявка на свою модель');const sum=cart.reduce((a,b)=>a+lineT(b),0);return`
+<h1>${cart.length?'Оформление заказа':'Заявка на свою вещь'}</h1><p class="lead">Без регистрации. Мастер подтвердит цену и сроки за 15 минут. Тестовый режим: реальная оплата не подключена.</p>
 <form class="form" onsubmit="return done(event)">
 <label>Имя<input required name="n" autocomplete="name" placeholder="Анна"></label>
-<label>Телефон<input required name="p" type="tel" autocomplete="tel" placeholder="+7 900 000-00-00"></label>
-<label>Город и адрес или ПВЗ<input required name="a" list="cities" autocomplete="street-address" placeholder="Санкт-Петербург, ул. ..."><datalist id="cities"><option>Санкт-Петербург</option><option>Москва</option><option>Казань</option><option>Екатеринбург</option><option>Новосибирск</option></datalist></label>
+<label>Телефон или Telegram<input required name="p" autocomplete="tel" placeholder="+7 900 000-00-00"></label>
+<label>Что напечатать: размер, цвет, пожелания<textarea name="t" rows="3" placeholder="Например: салфетница «Волна» в цвете шалфей, 15 шт. для кафе"></textarea></label>
+<label>Фото, эскиз или 3D-файл (STL, OBJ, 3MF)<input type="file" name="f" accept=".stl,.obj,.3mf,image/*"></label>
+<label>Город и адрес или ПВЗ<input required name="a" placeholder="Санкт-Петербург, ул. ..."></label>
 <b style="margin-top:8px">Доставка</b><div class="radio">
 <label><input type="radio" name="d" checked> Пункт выдачи СДЭК / Яндекс, 2–6 дней · ${sum>=FREE?'0 ₽':'199 ₽'}</label>
-<label><input type="radio" name="d"> Постамат, 2–6 дней · ${sum>=FREE?'0 ₽':'199 ₽'}</label>
-<label><input type="radio" name="d"> Курьер по СПб, на следующий день · 390 ₽</label>
+<label><input type="radio" name="d"> Курьер по СПб · 390 ₽</label>
 <label><input type="radio" name="d"> Самовывоз из мастерской (СПб) · 0 ₽</label></div>
-<b style="margin-top:8px">Оплата</b><div class="radio">
-<label><input type="radio" name="o" checked> СБП, без комиссии</label><label><input type="radio" name="o"> Картой «Мир», Visa, MasterCard</label><label><input type="radio" name="o"> Частями: 4 платежа</label><label><input type="radio" name="o"> При получении</label></div>
+<b style="margin-top:8px">Оплата после подтверждения цены</b><div class="radio">
+<label><input type="radio" name="o" checked> СБП, без комиссии</label><label><input type="radio" name="o"> Картой «Мир», Visa, MasterCard</label><label><input type="radio" name="o"> Частями: 4 платежа</label></div>
 <label class="chk"><input type="checkbox" required> <span>Я согласен(на) на обработку персональных данных в соответствии с <a href="#/privacy">политикой</a> (152-ФЗ)</span></label>
-<button class="btn" type="submit">Подтвердить заказ на ${fmt(sum)}</button><p class="note">Учебный проект: заказ не будет передан в работу, деньги не списываются.</p></form>`},
-done:()=>`<div class="box" style="max-width:560px"><h1 style="font-size:32px">Спасибо! Заказ №SL-${Math.floor(1000+Math.random()*9000)} оформлен</h1><p class="lead">Это учебный макет, поэтому заказ никуда не передан. В реальном магазине мы прислали бы SMS с трек-номером и датой отправки: <b>${shipDate()}</b>.</p><a class="btn" href="#/catalog">Вернуться в каталог</a></div>`,
-delivery:()=>{meta('Доставка и оплата — Слойно','Способы и сроки доставки по России, оплата СБП, картой, частями и при получении, возврат и перепечатка.');return`<div class="txt">
-<h1>Доставка и оплата</h1><p class="lead">Печатаем под заказ и отправляем за 48 часов. Срок отправки всегда указан в карточке товара.</p>
+<button class="btn" type="submit">${cart.length?'Подтвердить заказ на '+fmt(Math.max(sum,T.min)):'Отправить заявку'}</button><p class="note">Учебный проект: заявка никуда не передаётся, деньги не списываются.</p></form>`},
+done:()=>`<div class="box" style="max-width:560px"><h1 style="font-size:32px">Спасибо! Заявка №SL-${Math.floor(1000+Math.random()*9000)} принята</h1><p class="lead">Это учебный макет, поэтому заявка никуда не передана. В реальной мастерской мастер написал бы вам за 15 минут с точной ценой и датой готовности.</p><a class="btn" href="#/catalog">К примерам работ</a></div>`,
+delivery:()=>{meta('Как заказать, доставка и оплата — Слойно','Как заказать 3D-печать: тарифы, сроки печати, доставка по России, оплата, возврат.');return`<div class="txt">
+<h1>Как заказать, доставка и оплата</h1><p class="lead">Печатаем под заказ: от заявки до отправки обычно 1–2 дня.</p>
+<h2>Как заказать</h2><ul><li>Выберите пример с сайта и нажмите «Заказать такой же», или</li><li>опишите вещь в заявке и приложите фото, эскиз или 3D-файл;</li><li>мастер подтвердит цену и срок за 15 минут, после этого — оплата и печать.</li></ul>
+<h2>Тарифы</h2>${tariffTable()}
 <h2>Доставка</h2><table class="tbl"><tr><th>Способ</th><th>Срок</th><th>Стоимость</th></tr>
-<tr><td>Пункт выдачи СДЭК / Яндекс Доставка</td><td>1–6 дней по России</td><td>от 199 ₽, от 1 500 ₽ бесплатно</td></tr>
-<tr><td>Постаматы</td><td>2–6 дней</td><td>от 199 ₽, от 1 500 ₽ бесплатно</td></tr>
-<tr><td>Курьер по Санкт-Петербургу</td><td>на следующий день после отправки</td><td>390 ₽</td></tr>
-<tr><td>Почта России (малые города)</td><td>5–12 дней</td><td>по тарифу</td></tr>
+<tr><td>Пункт выдачи СДЭК / Яндекс Доставка, постаматы</td><td>1–6 дней по России</td><td>от 199 ₽, от 1 500 ₽ бесплатно</td></tr>
+<tr><td>Курьер по Санкт-Петербургу</td><td>на следующий день после печати</td><td>390 ₽</td></tr>
 <tr><td>Самовывоз из мастерской, СПб</td><td>в день готовности</td><td>бесплатно</td></tr></table>
-<h2>Оплата</h2><ul><li>СБП, без комиссии</li><li>Банковская карта «Мир», Visa, MasterCard</li><li>Оплата частями: 4 платежа</li><li>При получении в пункте выдачи</li></ul><p>Чек по 54-ФЗ приходит на почту или в SMS сразу после оплаты.</p>
-<h2>Возврат и перепечатка</h2><ul><li>Не подошёл цвет: в течение 14 дней бесплатно перепечатаем.</li><li>Брак или повреждение при доставке: заменим за наш счёт, нужно только фото.</li><li>Товары, изготовленные по индивидуальному заказу (нестандартный цвет или надпись), возврату не подлежат.</li></ul></div>`},
-about:()=>{meta('О магазине и контакты — Слойно','Мастерская 3D-печати в Санкт-Петербурге: история, реквизиты, контакты и карта.');return`<div class="txt">
-<h1>О магазине</h1><p class="lead">Слойно — мастерская 3D-печати в Санкт-Петербурге. Мы делаем мелочи для кухни, ванной и детской, которые наводят порядок и выглядят как дизайнерские вещи.</p>
-<p>Сайт — для тех, кто хочет выбрать любой цвет, собрать набор и получить вещь напрямую от мастерской. Каждое изделие печатается слоями по 0,2 мм — отсюда фирменная фактура и название.</p>
-<h2>Контакты</h2><table class="tbl"><tr><td>Телефон</td><td>+7 (900) 000-00-00 (учебный)</td></tr><tr><td>Мессенджеры</td><td>Telegram, MAX, ВКонтакте: @sloyno (учебные)</td></tr><tr><td>Почта</td><td>hello@sloyno3d.ru (учебная)</td></tr><tr><td>Мастерская</td><td>Санкт-Петербург, самовывоз по договорённости</td></tr><tr><td>Режим работы</td><td>ежедневно 10:00–20:00</td></tr></table>
+<h2>Оплата</h2><ul><li>После подтверждения цены: СБП, карта «Мир», Visa, MasterCard, оплата частями</li><li>Чек самозанятого приходит на почту или в SMS</li></ul>
+<h2>Гарантия и возврат</h2><ul><li>Брак печати или повреждение при доставке — перепечатаем бесплатно.</li><li>Не подошёл цвет у изделия из примеров — перепечатаем за полцены в течение 14 дней.</li><li>Вещи, сделанные по вашей модели или размеру, — индивидуальный заказ, возврату не подлежат.</li></ul></div>`},
+about:()=>{meta('О мастерской и контакты — Слойно','Мастерская 3D-печати в Санкт-Петербурге: как работаем, реквизиты, контакты.');return`<div class="txt">
+<h1>О мастерской</h1><p class="lead">Слойно — мастерская 3D-печати в Санкт-Петербурге. Печатаем вещи для дома под размер, цвет и задачу клиента: от одной салфетницы до партии для кафе.</p>
+<p>На сайте — примеры того, что мы уже печатали. Любую вещь можно повторить, изменить или придумать с нуля. Каждое изделие печатается слоями по 0,2 мм — отсюда фирменная фактура и название.</p>
+<h2>Контакты</h2><table class="tbl"><tr><td>Телефон</td><td>+7 (900) 000-00-00 (учебный)</td></tr><tr><td>Мессенджеры</td><td>Telegram, MAX, ВКонтакте: @sloyno (учебные)</td></tr><tr><td>Почта</td><td>hello@sloyno3d.ru (учебная)</td></tr><tr><td>Мастерская</td><td>Санкт-Петербург, самовывоз по договорённости</td></tr><tr><td>Режим работы</td><td>ежедневно 10:00–20:00, принтеры работают круглосуточно</td></tr></table>
 <h2>Реквизиты (учебные)</h2><p>Медетбеков Тилек, плательщик НПД (самозанятый), ИНН 000000000000. Учебный проект, заказы не принимаются.</p>
 <h2>Карта</h2><div style="border-radius:16px;overflow:hidden;border:1px solid var(--line)"><iframe title="Карта" src="https://yandex.ru/map-widget/v1/?ll=30.315868%2C59.939095&z=11" width="100%" height="320" frameborder="0" loading="lazy"></iframe></div></div>`},
-privacy:()=>{meta('Политика обработки персональных данных — Слойно','Политика обработки персональных данных интернет-магазина Слойно по 152-ФЗ.');return`<div class="txt">
-<h1>Политика обработки персональных данных</h1><p class="note">Учебный документ. Редакция от 06.11.2026.</p>
+privacy:()=>{meta('Политика обработки персональных данных — Слойно','Политика обработки персональных данных мастерской Слойно по 152-ФЗ.');return`<div class="txt">
+<h1>Политика обработки персональных данных</h1><p class="note">Учебный документ. Редакция от 20.11.2026.</p>
 <h2>1. Общие положения</h2><p>Политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных посетителей сайта «Слойно» (далее — Сайт). Оператор: Медетбеков Тилек, плательщик НПД (учебные реквизиты).</p>
-<h2>2. Какие данные обрабатываются</h2><ul><li>имя;</li><li>номер телефона;</li><li>адрес доставки или выбранный пункт выдачи;</li><li>адрес электронной почты (при подписке);</li><li>обезличенные данные о посещениях (cookie, сервисы веб-аналитики).</li></ul>
-<h2>3. Цели обработки</h2><ul><li>оформление, изготовление и доставка заказа;</li><li>связь с покупателем по заказу;</li><li>рассылка новостей и предложений, только при отдельном согласии;</li><li>улучшение работы Сайта.</li></ul>
-<h2>4. Правовые основания</h2><p>Согласие субъекта персональных данных, выраженное проставлением отметки в форме, а также исполнение договора купли-продажи.</p>
-<h2>5. Порядок обработки и хранения</h2><p>Данные хранятся на серверах на территории Российской Федерации, передаются только службам доставки и платёжному агрегатору в объёме, необходимом для исполнения заказа. Срок хранения: до достижения целей обработки или отзыва согласия.</p>
-<h2>6. Права пользователя</h2><p>Пользователь вправе получить сведения об обработке своих данных, потребовать их уточнения или удаления и отозвать согласие, написав на hello@sloyno3d.ru.</p>
-<h2>7. Cookie</h2><p>Сайт использует cookie для работы корзины и сбора обезличенной статистики. Их можно отключить в настройках браузера.</p></div>`}};
+<h2>2. Какие данные обрабатываются</h2><ul><li>имя;</li><li>номер телефона или имя в мессенджере;</li><li>адрес доставки или пункт выдачи;</li><li>файлы и описание заказа, которые пользователь прикладывает к заявке;</li><li>обезличенные данные о посещениях (cookie, веб-аналитика).</li></ul>
+<h2>3. Цели обработки</h2><ul><li>расчёт стоимости, изготовление и доставка заказа;</li><li>связь с клиентом по заказу;</li><li>рассылка новостей — только при отдельном согласии;</li><li>улучшение работы Сайта.</li></ul>
+<h2>4. Правовые основания</h2><p>Согласие субъекта персональных данных, выраженное отметкой в форме, и исполнение договора.</p>
+<h2>5. Хранение</h2><p>Данные хранятся на территории Российской Федерации и передаются только службам доставки и платёжному агрегатору в необходимом объёме. Файлы моделей клиента не передаются третьим лицам и не используются без его согласия.</p>
+<h2>6. Права пользователя</h2><p>Пользователь вправе получить сведения об обработке своих данных, потребовать их уточнения или удаления и отозвать согласие, написав на hello@sloyno3d.ru.</p></div>`}};
 function meta(t,d){document.title=t;document.querySelector('meta[name=description]').setAttribute('content',d)}
 let S={c:0},promo=false;
-function thumbs(p){return p.v.length>1?p.v.map((v,i)=>`<button class="${i==S.c?'on':''}" onclick="pickColor('${p.id}',${i})" aria-label="${v[0]}">${pic(p,i,1,'ph')}</button>`).join(''):''}
-function pickColor(id,i){const p=P.find(x=>x.id===id);S.c=i;document.getElementById('gm').innerHTML=pic(p,i,1,'ph');document.getElementById('th').innerHTML=thumbs(p);document.getElementById('cn').textContent=p.v[i][0];document.querySelectorAll('.sw button').forEach((b,j)=>b.classList.toggle('on',j===i))}
+function thumbs(p){return p.v.length>1?p.v.map((v,i)=>`<button class="${i==S.c?'on':''}" onclick="pickColor('${p.id}',${i})" aria-label="${v[0]}">${pic(p,i)}</button>`).join(''):''}
+function pickColor(id,i){const p=P.find(x=>x.id===id);S.c=i;document.getElementById('gm').innerHTML=pic(p,i);document.getElementById('th').innerHTML=thumbs(p);document.getElementById('cn').textContent=p.v[i][0];document.querySelectorAll('.sw button').forEach((b,j)=>b.classList.toggle('on',j===i))}
+function exPick(id){const p=P.find(x=>x.id===id);if(p){document.getElementById('c_g').value=p.g;document.getElementById('c_mat').value=p.mat;document.getElementById('c_post').checked=!!p.post;document.getElementById('c_model').value='none'}calc()}
+function calc(){const el=document.getElementById('c_res');if(!el)return;const id=document.getElementById('c_ex').value;const p=P.find(x=>x.id===id);
+ const o={mat:document.getElementById('c_mat').value,g:Math.max(1,+document.getElementById('c_g').value||0),qty:Math.max(1,+document.getElementById('c_q').value||1),post:document.getElementById('c_post').checked,model:document.getElementById('c_model').value,urgent:document.getElementById('c_urg').checked,ext:p?p.ext:0};
+ const r=quote(o);el.innerHTML=`<b>Расчёт</b><table class="specs" style="margin-top:8px"><tr><td>Пластик ${o.mat}: ${o.g} г × ${T.mat[o.mat]} ₽</td><td>${fmt(o.g*T.mat[o.mat])}</td></tr>${o.post?`<tr><td>Постобработка</td><td>${fmt(T.post)}</td></tr>`:''}${o.ext?`<tr><td>Комплектующие</td><td>${fmt(o.ext)}</td></tr>`:''}<tr><td>За 1 шт.</td><td>${fmt(r.u)}</td></tr><tr><td>× ${o.qty} шт.</td><td>${fmt(r.sum)}</td></tr>${r.disc?`<tr><td>Скидка за тираж −${r.d*100}%</td><td>−${fmt(r.disc)}</td></tr>`:''}${r.model?`<tr><td>Подготовка / моделирование</td><td>${o.model==='sketch'?'от ':''}${fmt(r.model)}</td></tr>`:''}${r.urg?`<tr><td>Срочность +30%</td><td>${fmt(r.urg)}</td></tr>`:''}${r.min?`<tr><td>До минимального заказа</td><td>+${fmt(r.min)}</td></tr>`:''}</table>
+ <div class="row" style="font-size:24px;font-weight:800;margin-top:12px"><span>Итого</span><span>${o.model==='sketch'?'от ':''}${fmt(r.total)}</span></div><p class="note">Готовность: ${o.urgent?'24 часа':'1–2 дня'} · точную цену мастер подтвердит после проверки модели</p>
+ ${p?`<button class="btn" style="width:100%;margin-top:10px" onclick="for(let i=0;i<${o.qty};i++)add('${p.id}');go('cart')">Заказать ${o.qty} шт.</button>`:`<a class="btn" style="width:100%;margin-top:10px;text-align:center" href="#/checkout">Отправить заявку с расчётом</a>`}`}
 function q(i,d){cart[i].q+=d;if(cart[i].q<1)cart.splice(i,1);save();route()}
 function applyPromo(){promo=document.getElementById('pc').value.trim().toUpperCase()==='ПЕРВЫЙ';toast(promo?'Промокод применён: −10%':'Промокод не найден');route()}
 function done(e){e.preventDefault();cart=[];save();go('done');return false}
-function drawCat(c){const s=document.getElementById('sort').value;let l=P.filter(p=>!c||p.cat===c);if(s=='asc')l.sort((a,b)=>a.price-b.price);if(s=='desc')l.sort((a,b)=>b.price-a.price);if(s=='pop')l.sort((a,b)=>(b.hit||0)-(a.hit||0));document.getElementById('cg').innerHTML=l.map(card).join('')}
-// Навигация без опоры на location.hash: работает и в песочнице (iframe), и на обычном хостинге
+function drawCat(c){const s=document.getElementById('sort').value;let l=P.filter(p=>!c||p.cat===c);if(s=='asc')l.sort((a,b)=>unit(a)-unit(b));if(s=='desc')l.sort((a,b)=>unit(b)-unit(a));if(s=='pop')l.sort((a,b)=>(b.hit||0)-(a.hit||0));document.getElementById('cg').innerHTML=l.map(card).join('')}
 let CUR=(location.hash||'').replace(/^#\/?/,'');
 function go(path){CUR=path.replace(/^#?\/?/,'');try{history.replaceState(null,'','#/'+CUR)}catch(e){}route()}
-document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const h=a.getAttribute('href');if(h==='#rv'){e.preventDefault();document.getElementById('rv')?.scrollIntoView({behavior:'smooth'});return}e.preventDefault();go(h)});
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;e.preventDefault();go(a.getAttribute('href'))});
 function route(){const h=CUR.split('/');const k=h[0]||'';const f=R[k]||R[''];if(k==='product'&&S.id!==h[1])S={id:h[1],c:0};
- document.getElementById('app').innerHTML=f(h[1]);if(k==='catalog')drawCat(h[1]||'');
+ document.getElementById('app').innerHTML=f(h[1]);if(k==='catalog')drawCat(h[1]||'');if(k==='calc')calc();
  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#/'+k));document.querySelector('nav').classList.remove('open');window.scrollTo(0,0)}
 window.addEventListener('hashchange',()=>{const n=location.hash.replace(/^#\/?/,'');if(n!==CUR){CUR=n;route()}});save();route();
 </script>
